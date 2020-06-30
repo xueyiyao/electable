@@ -1,3 +1,10 @@
 language: python
+python:
+  - "3.7.6"
+env:
+  - DJANGO_VERSION=3.0.7
+before_script:
+  # - mysql -e 'create database test;' -u root
+  cd electable_base
 script:
-  - pytest
+  - python manage.py test
