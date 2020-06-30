@@ -8,4 +8,4 @@ before_script:
   - python -m pip install django
   - cd electable_base
 script:
-  - python manage.py test
+  - python manage.py test cheatsheet2020
