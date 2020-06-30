@@ -5,7 +5,7 @@ env:
   - DJANGO_VERSION=3.0.7
 before_script:
   # - mysql -e 'create database test;' -u root
-  python -m pip install django
-  cd electable_base
+  - python -m pip install django
+  - cd electable_base
 script:
   - python manage.py test
