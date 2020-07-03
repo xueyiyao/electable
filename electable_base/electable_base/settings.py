@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'cheatsheet2020.apps.Cheatsheet2020Config',
+    'localflavor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
