@@ -1,0 +1,10 @@
+<h1>{{ county_election.county }}</h1>
+<ul>
+  {% for office in county_election.office_set.all %}
+  <li>
+    <a href="/cheatsheet2020/{{ county_election.id }}/{{ office.name }}/"
+      >{{ office.name }}</a
+    >
+  </li>
+  {% endfor %}
+</ul>
