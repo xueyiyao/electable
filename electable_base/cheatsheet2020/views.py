@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 # from django.template import loader
 from django.shortcuts import render, get_object_or_404
+from django.views.generic import RedirectView
 
 from .models import FederalElection, StateElection, LocalElection, LocalOffice, Candidate
 
@@ -17,13 +18,13 @@ def index(request):
 
 def search(request):
     if request.method == 'POST':
-        local_area_name = request.POST.get('textfield', None)
+        local_area_name = request.POST.get('textfield', None).lower()
         local_election = get_object_or_404(LocalElection, local_area = local_area_name)
         state_election = get_object_or_404(StateElection, state = local_election.state.state)
         federal_election = get_object_or_404(FederalElection)
         return render(request, 'cheatsheet2020/list.html', {'federal_election': federal_election, 'state_election': state_election, 'local_election': local_election})
     else:
-        return render(request, 'cheatsheet2020/index.html')
+        return HttpResponseRedirect('/cheatsheet2020/')
 
 def candidates_list(request, election_id, office_name):
     local_election = get_object_or_404(LocalElection, id = election_id)

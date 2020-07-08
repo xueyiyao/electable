@@ -26,7 +26,7 @@ class LocalElection(Election):
     local_area = models.CharField(max_length=50, primary_key=True)
 
     def __str__(self):
-        return '(' + self.state.state + ') Local Election: ' + self.local_area
+        return '(' + self.state.state + ') Local Election: ' + self.local_area.title()
 
     def get_name(self):
         return self.local_area
@@ -54,7 +54,7 @@ class FederalOffice(Office):
         unique_together = ('federal_election', 'name',)
 
     def __str__(self):
-        return 'Office: ' + self.name
+        return 'Office: ' + self.name.title()
 
 class StateOffice(Office):
     """
@@ -67,7 +67,7 @@ class StateOffice(Office):
         unique_together = ('state_election', 'name',)
 
     def __str__(self):
-        return 'Office: ' + self.name + ' of ' + self.state_election.state
+        return 'Office: ' + self.name.title() + ' of ' + self.state_election.state
 
 class LocalOffice(Office):
     """
@@ -80,7 +80,7 @@ class LocalOffice(Office):
         unique_together = ('local_election', 'name',)
 
     def __str__(self):
-        return 'Office: ' + self.name + ' of ' + self.local_election.local_area
+        return 'Office: ' + self.name.title() + ' of ' + self.local_election.local_area.title()
 
 
 

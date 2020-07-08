@@ -1,9 +1,9 @@
-<h1>{{ office.name }}</h1>
+<h1>{{ office.name|title }}</h1>
 <ul>
   {% for candidate in office.localcandidate_set.all %}
   <li>
     <a
-      href="/cheatsheet2020/{{ election_id }}/{{ office.name }}/{{ candidate.id }}/"
+      href="{% url 'cheatsheet2020:candidate_details' election_id office.name candidate.id %}"
       >{{ candidate.name }}</a
     >
   </li>
