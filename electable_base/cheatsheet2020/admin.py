@@ -1,17 +1,18 @@
 from django.contrib import admin
 
-from .models import Election, StateElection, CountyElection, DistrictElection, Office, Candidate
+from .models import FederalElection, StateElection, LocalElection
+from .models import FederalOffice, FederalCandidate, StateOffice, StateCandidate, LocalOffice, LocalCandidate
 
 class ElectionAdmin(admin.ModelAdmin):
     readonly_fields=('id',)
 
-class StateElectionAdmin(admin.ModelAdmin):
-    readonly_fields=('id',)
-
 # Register your models here.
-admin.site.register(Election, ElectionAdmin)
+admin.site.register(FederalElection, ElectionAdmin)
 admin.site.register(StateElection, ElectionAdmin)
-admin.site.register(DistrictElection, ElectionAdmin)
-admin.site.register(CountyElection, ElectionAdmin)
-admin.site.register(Office)
-admin.site.register(Candidate)
+admin.site.register(LocalElection, ElectionAdmin)
+admin.site.register(FederalOffice)
+admin.site.register(FederalCandidate)
+admin.site.register(StateOffice)
+admin.site.register(StateCandidate)
+admin.site.register(LocalOffice)
+admin.site.register(LocalCandidate)

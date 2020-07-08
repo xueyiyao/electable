@@ -3,11 +3,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 # from django.template import loader
 from django.shortcuts import render, get_object_or_404
 
-from .models import CountyElection, DistrictElection, StateElection, Election, Office, Candidate
+from .models import FederalElection, StateElection, LocalElection, LocalOffice, Candidate
 
 # Create your views here.
 def index(request):
-    elections_list = CountyElection.objects.order_by('-county')
+    elections_list = LocalElection.objects.order_by('-county')
     # output = ', '.join([q.county for q in elections_list])
     # template = loader.get_template('cheatsheet2020/index.html')
     context = {
@@ -17,14 +17,17 @@ def index(request):
 
 def search(request):
     if request.method == 'POST':
-        county_name = request.POST.get('textfield', None)
-        county_election = get_object_or_404(CountyElection, county = county_name)
-        return render(request, 'cheatsheet2020/list.html', {'county_election': county_election})
+        local_area_name = request.POST.get('textfield', None)
+        local_election = get_object_or_404(LocalElection, local_area = local_area_name)
+        state_election = get_object_or_404(StateElection, state = local_election.state.state)
+        federal_election = get_object_or_404(FederalElection)
+        return render(request, 'cheatsheet2020/list.html', {'federal_election': federal_election, 'state_election': state_election, 'local_election': local_election})
     else:
         return render(request, 'cheatsheet2020/index.html')
 
 def candidates_list(request, election_id, office_name):
-    office = get_object_or_404(Office, name = office_name)
+    local_election = get_object_or_404(LocalElection, id = election_id)
+    office = get_object_or_404(LocalOffice, local_election = local_election, name = office_name)
     return render(request, 'cheatsheet2020/candidates_list.html', {'election_id': election_id ,'office': office})
 
 def candidate_details(request, election_id, office_name, candidate_id):
