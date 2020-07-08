@@ -1,10 +1,11 @@
-<h1>{{ local_election.local_area }}</h1>
+<h1>{{ local_election.local_area|title }}</h1>
 <ul>
   <h4>Federal Election</h4>
   {% for office in federal_election.federaloffice_set.all %}
   <li>
-    <a href="/cheatsheet2020/{{ federal_election.id }}/{{ office.name }}/"
-      >{{ office.name }}</a
+    <a
+      href="{% url 'cheatsheet2020:candidates_list' federal_election.id office.name %}"
+      >{{ office.name|title }}</a
     >
   </li>
   {% endfor %}
@@ -12,8 +13,9 @@
   <h4>State Election</h4>
   {% for office in state_election.stateoffice_set.all %}
   <li>
-    <a href="/cheatsheet2020/{{ state_election.id }}/{{ office.name }}/"
-      >{{ office.name }}</a
+    <a
+      href="{% url 'cheatsheet2020:candidates_list' state_election.id office.name %}"
+      >{{ office.name|title }}</a
     >
   </li>
   {% endfor %}
@@ -21,8 +23,9 @@
   <h4>Local Election</h4>
   {% for office in local_election.localoffice_set.all %}
   <li>
-    <a href="/cheatsheet2020/{{ local_election.id }}/{{ office.name }}/"
-      >{{ office.name }}</a
+    <a
+      href="{% url 'cheatsheet2020:candidates_list' local_election.id office.name %}"
+      >{{ office.name|title }}</a
     >
   </li>
   {% endfor %}
