@@ -134,5 +134,6 @@ class CandidateModelTests(TestCase):
         st_senator = StateOffice.objects.get(state_election=ca_elec, name='State Senator')
         try:
             StateCandidate.objects.create(office=st_senator, name='Nat Possibal', score=-1)
+            self.fail("Failed to raise IntegrityError for test 'test_candidate_score_cannot_be_negative'.")
         except IntegrityError:
             pass
