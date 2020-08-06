@@ -1,14 +1,8 @@
 language: python
-python:
-  - "3.7.6"
-env:
-  - DJANGO_VERSION=3.0.7
+install:
+  - pip install pipenv
+  - pipenv install
 before_script:
-  # - mysql -e 'create database test;' -u root
-  - python -m pip install django
-  - pip install django-localflavor
-  - pip install selenium
-  - pip install chromedriver-py
   - cd electable_base
 script:
   - python manage.py test cheatsheet2020
