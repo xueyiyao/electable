@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'frontend',
     'cheatsheet2020.apps.Cheatsheet2020Config',
+    'rest_framework',
     'localflavor',
     'django.contrib.admin',
     'django.contrib.auth',

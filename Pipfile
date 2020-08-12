@@ -10,6 +10,8 @@ django = "*"
 django-localflavor = "*"
 selenium = "*"
 chromedriver-py = "*"
+djangorestframework = "*"
+django-rest-knox = "*"
 
 [requires]
 python_version = "3.7"
