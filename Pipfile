@@ -12,6 +12,7 @@ selenium = "*"
 chromedriver-py = "*"
 djangorestframework = "*"
 django-rest-knox = "*"
+django-filter = "*"
 
 [requires]
 python_version = "3.7"
