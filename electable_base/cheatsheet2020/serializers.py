@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import FederalCandidate, FederalOffice, FederalElection, StateElection, StateOffice, StateCandidate
+from .models import LocalElection, LocalOffice, LocalCandidate
 
 class FederalElectionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,4 +30,19 @@ class StateOfficeSerializer(serializers.ModelSerializer):
 class StateCandidateSerializer(serializers.ModelSerializer):
     class Meta:
         model = StateCandidate
+        fields = '__all__'
+
+class LocalElectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LocalElection
+        fields = '__all__'
+
+class LocalOfficeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LocalOffice
+        fields = '__all__'
+
+class LocalCandidateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LocalCandidate
         fields = '__all__'

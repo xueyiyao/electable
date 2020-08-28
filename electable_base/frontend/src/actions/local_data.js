@@ -1,18 +1,19 @@
 import axios from "axios";
 import {
-  GET_STATE_OFFICES,
-  GET_STATE_CANDIDATES,
-  GET_TOP_STATE_CANDIDATES,
+  GET_LOCAL_OFFICES,
+  GET_LOCAL_CANDIDATES,
+  GET_TOP_LOCAL_CANDIDATES,
 } from "./types";
 
-// Makes requests for state_offices, state_candidates, and top_state_candidates
-export const getStateData = (USstate) => (dispatch) => {
+export const getLocalData = (USstate, county) => (dispatch) => {
   var off = [];
   axios
-    .get(`api/state_offices?state_election__state=${USstate}`)
+    .get(
+      `api/local_offices?local_election__state__state=${USstate}&local_election__local_area=${county}`
+    )
     .then((res) => {
       dispatch({
-        type: GET_STATE_OFFICES,
+        type: GET_LOCAL_OFFICES,
         payload: res.data,
       });
       off = res.data;
@@ -20,11 +21,11 @@ export const getStateData = (USstate) => (dispatch) => {
     .then(() => {
       axios
         .get(
-          `/api/state_candidates?ordering=-score&office__state_election__state=${USstate}`
+          `api/local_candidates?ordering=-score&office__local_election__local_area=${county}`
         )
         .then((res) => {
           dispatch({
-            type: GET_STATE_CANDIDATES,
+            type: GET_LOCAL_CANDIDATES,
             payload: res.data,
           });
 
@@ -33,13 +34,13 @@ export const getStateData = (USstate) => (dispatch) => {
           for (i = 0; i < off.length; i++) {
             top.push(
               res.data.filter(
-                (state_candidate) => state_candidate.office == off[i].id
+                (local_candidate) => local_candidate.office == off[i].id
               )[0]
             );
           }
 
           dispatch({
-            type: GET_TOP_STATE_CANDIDATES,
+            type: GET_TOP_LOCAL_CANDIDATES,
             payload: top,
           });
         });

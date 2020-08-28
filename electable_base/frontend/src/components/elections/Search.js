@@ -4,7 +4,9 @@ import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
+import { Alert } from "react-bootstrap";
 import { getStateData } from "../../actions/state_offices";
+import { getLocalData } from "../../actions/local_data";
 
 export class Search extends Component {
   state = {
@@ -14,6 +16,7 @@ export class Search extends Component {
 
   static propTypes = {
     getStateData: PropTypes.func.isRequired,
+    getLocalData: PropTypes.func.isRequired,
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
@@ -21,12 +24,19 @@ export class Search extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     this.props.getStateData(this.state.USstate);
+    if (this.state.county != "") {
+      this.props.getLocalData(this.state.USstate, this.state.county);
+    }
   };
 
   render() {
     const { county, USstate } = this.state;
     return (
       <Fragment>
+        <Alert variant="danger" show={false}>
+          <Alert.Heading>Oops! Something happened...</Alert.Heading>
+          <p>Maybe check spelling and try again!</p>
+        </Alert>
         <h2>Search</h2>
         <Form onSubmit={this.onSubmit}>
           <Form.Row className="align-items-center">
@@ -115,4 +125,5 @@ export class Search extends Component {
 
 export default connect(null, {
   getStateData: getStateData,
+  getLocalData: getLocalData,
 })(Search);
