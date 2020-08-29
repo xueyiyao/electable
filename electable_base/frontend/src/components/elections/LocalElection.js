@@ -1,7 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { local_offices, local_candidates } from "../../reducers/local_data";
+import {
+  local_offices,
+  local_candidates,
+  county_not_in_state,
+} from "../../reducers/local_data";
 import top_local_candidates from "../../reducers/local_data";
 import { Accordion, Button, Card } from "react-bootstrap";
 
@@ -10,11 +14,14 @@ export class LocalElection extends Component {
     local_offices: PropTypes.array.isRequired,
     local_candidates: PropTypes.array.isRequired,
     top_local_candidates: PropTypes.array.isRequired,
+    county_not_in_state: PropTypes.bool.isRequired,
   };
 
   render() {
     let table;
-    if (
+    if (this.props.county_not_in_state) {
+      table = <p>Oops, we couldn't find that county!</p>;
+    } else if (
       this.props.top_local_candidates.length != this.props.local_offices.length
     ) {
       table = <p>loading...</p>;
@@ -80,6 +87,7 @@ const mapStateToProps = (state) => ({
   local_offices: state.local_data.local_offices,
   local_candidates: state.local_data.local_candidates,
   top_local_candidates: state.local_data.top_local_candidates,
+  county_not_in_state: state.local_data.county_not_in_state,
 });
 
 export default connect(mapStateToProps, null)(LocalElection);
