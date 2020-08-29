@@ -6,7 +6,10 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import { Alert } from "react-bootstrap";
 import { getStateData } from "../../actions/state_offices";
-import { getLocalData } from "../../actions/local_data";
+import {
+  getLocalData,
+  hideCountyNotInStateAlert,
+} from "../../actions/local_data";
 
 export class Search extends Component {
   state = {
@@ -17,6 +20,8 @@ export class Search extends Component {
   static propTypes = {
     getStateData: PropTypes.func.isRequired,
     getLocalData: PropTypes.func.isRequired,
+    county_not_in_state: PropTypes.bool.isRequired,
+    show_county_not_in_state_alert: PropTypes.bool.isRequired,
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
@@ -33,9 +38,17 @@ export class Search extends Component {
     const { county, USstate } = this.state;
     return (
       <Fragment>
-        <Alert variant="danger" show={false}>
+        <Alert
+          variant="danger"
+          show={this.props.show_county_not_in_state_alert}
+          onClose={this.props.hideCountyNotInStateAlert}
+          dismissible
+        >
           <Alert.Heading>Oops! Something happened...</Alert.Heading>
-          <p>Maybe check spelling and try again!</p>
+          <p>
+            We couldn't find that county! Maybe check the spelling or ensure
+            that the right state is selected.
+          </p>
         </Alert>
         <h2>Search</h2>
         <Form onSubmit={this.onSubmit}>
@@ -123,7 +136,14 @@ export class Search extends Component {
   }
 }
 
-export default connect(null, {
+const mapStateToProps = (state) => ({
+  county_not_in_state: state.local_data.county_not_in_state,
+  show_county_not_in_state_alert:
+    state.local_data.show_county_not_in_state_alert,
+});
+
+export default connect(mapStateToProps, {
   getStateData: getStateData,
   getLocalData: getLocalData,
+  hideCountyNotInStateAlert: hideCountyNotInStateAlert,
 })(Search);
