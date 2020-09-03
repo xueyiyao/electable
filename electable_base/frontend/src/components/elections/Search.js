@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import { Alert } from "react-bootstrap";
-import { getStateData } from "../../actions/state_offices";
+import { getStateData } from "../../actions/state_data";
 import {
   getLocalData,
   hideCountyNotInStateAlert,

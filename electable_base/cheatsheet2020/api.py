@@ -20,6 +20,8 @@ class FederalOfficeViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = FederalOfficeSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['id']
 
 class FederalCandidateViewSet(viewsets.ModelViewSet):
     queryset = FederalCandidate.objects.all()
@@ -29,7 +31,7 @@ class FederalCandidateViewSet(viewsets.ModelViewSet):
     serializer_class = FederalCandidateSerializer
     filter_backends = [filters.OrderingFilter, DjangoFilterBackend]
     ordering_fields = ['score']
-    filterset_fields = ['office__id']
+    filterset_fields = ['id', 'office__id']
 
 class StateElectionViewSet(viewsets.ModelViewSet):
     queryset = StateElection.objects.all()
@@ -47,7 +49,7 @@ class StateOfficeViewSet(viewsets.ModelViewSet):
     ]
     serializer_class = StateOfficeSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['name', 'state_election__state']
+    filterset_fields = ['id', 'name', 'state_election__state']
 
 class StateCandidateViewSet(viewsets.ModelViewSet):
     queryset = StateCandidate.objects.all()
@@ -75,7 +77,7 @@ class LocalOfficeViewSet(viewsets.ModelViewSet):
     ]
     serializer_class = LocalOfficeSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['local_election__state__state', 'local_election__local_area']
+    filterset_fields = ['id', 'local_election__state__state', 'local_election__local_area']
 
 class LocalCandidateViewSet(viewsets.ModelViewSet):
     queryset = LocalCandidate.objects.all()
@@ -85,4 +87,4 @@ class LocalCandidateViewSet(viewsets.ModelViewSet):
     serializer_class = LocalCandidateSerializer
     filter_backends = [filters.OrderingFilter ,DjangoFilterBackend]
     ordering_fields = ['score']
-    filterset_fields = ['office__id', 'office__local_election__local_area']
+    filterset_fields = ['id', 'office__id', 'office__local_election__local_area']

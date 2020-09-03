@@ -23,7 +23,7 @@ export const getFederalCandidates = (office__id) => (dispatch) => {
       .then((res) => {
         dispatch({
           type: GET_FEDERAL_CANDIDATES_PARTICULAR,
-          payload: office__id,
+          payload: res.data,
         });
       })
       .catch((err) => console.log(err));
@@ -36,4 +36,16 @@ export const getTopCandidates = (top) => (dispatch) => {
     type: GET_TOP_CANDIDATES,
     payload: top,
   });
+};
+
+export const getFederalCandidateById = (id) => (dispatch) => {
+  axios
+    .get(`/api/federal_candidates?id=${id}`)
+    .then((res) => {
+      dispatch({
+        type: GET_FEDERAL_CANDIDATES,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
 };

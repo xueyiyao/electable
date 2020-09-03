@@ -75,3 +75,39 @@ export const hideCountyNotInStateAlert = () => (dispatch) => {
     type: HIDE_COUNTY_NOT_IN_STATE_ALERT,
   });
 };
+
+export const getLocalOfficeById = (id) => (dispatch) => {
+  axios
+    .get(`/api/local_offices?id=${id}`)
+    .then((res) => {
+      dispatch({
+        type: GET_LOCAL_OFFICES,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+export const getLocalCandidatesByOfficeId = (office_id) => (dispatch) => {
+  axios
+    .get(`/api/local_candidates?ordering=-score&office__id=${office_id}`)
+    .then((res) => {
+      dispatch({
+        type: GET_LOCAL_CANDIDATES,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+export const getLocalCandidateById = (id) => (dispatch) => {
+  axios
+    .get(`/api/local_candidates?id=${id}`)
+    .then((res) => {
+      dispatch({
+        type: GET_LOCAL_CANDIDATES,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
+};
