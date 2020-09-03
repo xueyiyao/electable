@@ -8,6 +8,7 @@ import {
 } from "../../reducers/local_data";
 import top_local_candidates from "../../reducers/local_data";
 import { Accordion, Button, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export class LocalElection extends Component {
   static propTypes = {
@@ -40,13 +41,21 @@ export class LocalElection extends Component {
           <tbody>
             {this.props.local_offices.map((local_office, index) => (
               <tr key={local_office.id}>
-                <td>{local_office.name}</td>
+                <td>
+                  <Link to={`/off/loc/${local_office.id}`}>
+                    {local_office.name}
+                  </Link>
+                </td>
                 <td>
                   <Card className="text-center">
                     <Card.Img variant="top" src="" />
                     <Card.Body>
                       <Card.Title>
-                        {this.props.top_local_candidates[index].name}
+                        <Link
+                          to={`/cand/loc/${this.props.top_local_candidates[index].id}`}
+                        >
+                          {this.props.top_local_candidates[index].name}
+                        </Link>
                       </Card.Title>
                       <Card.Text>
                         Score: {this.props.top_local_candidates[index].score}

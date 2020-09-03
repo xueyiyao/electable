@@ -46,3 +46,39 @@ export const getStateData = (USstate) => (dispatch) => {
     })
     .catch((err) => console.log(err));
 };
+
+export const getStateOfficeById = (id) => (dispatch) => {
+  axios
+    .get(`/api/state_offices?id=${id}`)
+    .then((res) => {
+      dispatch({
+        type: GET_STATE_OFFICES,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+export const getStateCandidatesByOfficeId = (office_id) => (dispatch) => {
+  axios
+    .get(`/api/state_candidates?ordering=-score&office__id=${office_id}`)
+    .then((res) => {
+      dispatch({
+        type: GET_STATE_CANDIDATES,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+export const getStateCandidateById = (id) => (dispatch) => {
+  axios
+    .get(`/api/state_candidates?id=${id}`)
+    .then((res) => {
+      dispatch({
+        type: GET_STATE_CANDIDATES,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
+};

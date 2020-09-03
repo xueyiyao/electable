@@ -19,9 +19,7 @@ export default function (state = initialState, action) {
     case GET_FEDERAL_CANDIDATES_PARTICULAR:
       return {
         ...state,
-        federal_candidates: state.federal_candidates.filter(
-          (federal_candidate) => federal_candidate.office == action.payload
-        ),
+        federal_candidates: action.payload,
       };
     case GET_TOP_CANDIDATES:
       return {

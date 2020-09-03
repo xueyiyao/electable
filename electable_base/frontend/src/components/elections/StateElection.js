@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import state_offices from "../../reducers/state_offices";
 import state_candidates from "../../reducers/state_offices";
 import { Accordion, Button, Card } from "react-bootstrap";
-import { getTopStateCandidates } from "../../actions/state_candidates";
+import { Link } from "react-router-dom";
 
 export class StateElection extends Component {
   static propTypes = {
@@ -34,13 +34,21 @@ export class StateElection extends Component {
           <tbody>
             {this.props.state_offices.map((state_office, index) => (
               <tr key={state_office.id}>
-                <td>{state_office.name}</td>
+                <td>
+                  <Link to={`/off/state/${state_office.id}`}>
+                    {state_office.name}
+                  </Link>
+                </td>
                 <td>
                   <Card className="text-center">
                     <Card.Img variant="top" src="" />
                     <Card.Body>
                       <Card.Title>
-                        {this.props.top_state_candidates[index].name}
+                        <Link
+                          to={`/cand/state/${this.props.top_state_candidates[index].id}`}
+                        >
+                          {this.props.top_state_candidates[index].name}
+                        </Link>
                       </Card.Title>
                       <Card.Text>
                         Score: {this.props.top_state_candidates[index].score}

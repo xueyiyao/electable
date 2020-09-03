@@ -12,6 +12,7 @@ import {
   top_candidates,
 } from "../../reducers/federal_candidates";
 import { Accordion, Button, Card, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export class FederalElection extends Component {
   static propTypes = {
@@ -60,19 +61,27 @@ export class FederalElection extends Component {
             {this.props.federal_offices.map((federal_office, index) => {
               return (
                 <tr key={federal_office.id}>
-                  <td>{federal_office.name}</td>
                   <td>
-                    <Card className="text-center">
-                      <Card.Img variant="top" src="" />
-                      <Card.Body>
-                        <Card.Title>
-                          {this.props.top_candidates[index].name}
-                        </Card.Title>
-                        <Card.Text>
-                          Score: {this.props.top_candidates[index].score}
-                        </Card.Text>
-                      </Card.Body>
-                    </Card>
+                    <Link to={`/off/fed/${federal_office.id}`}>
+                      {federal_office.name}
+                    </Link>
+                  </td>
+                  <td>
+                    <Link
+                      to={`/cand/fed/${this.props.top_candidates[index].id}`}
+                    >
+                      <Card className="text-center">
+                        <Card.Img variant="top" src="" />
+                        <Card.Body>
+                          <Card.Title>
+                            {this.props.top_candidates[index].name}
+                          </Card.Title>
+                          <Card.Text>
+                            Score: {this.props.top_candidates[index].score}
+                          </Card.Text>
+                        </Card.Body>
+                      </Card>
+                    </Link>
                   </td>
                 </tr>
               );
